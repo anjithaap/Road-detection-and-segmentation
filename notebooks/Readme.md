@@ -1,5 +1,4 @@
 # Python Notebooks
-___
 
 | Network | Accelerator | Colab URL |
 |--|--|--|
