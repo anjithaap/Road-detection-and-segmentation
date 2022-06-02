@@ -6,6 +6,9 @@ from skimage.io import imread
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
+# Import Prepared Dataset
+from prepare_dataset import getDataset
+
 # Import Model architecture
 from models.fcn_32 import FCN32
 from models.fcn_8 import FCN8
@@ -14,8 +17,6 @@ from models.fcn_8 import FCN8
 model_path = "./Trained-Model/Road_Model.h5"
 
 checkpointer = ModelCheckpoint(model_path, monitor="val_loss", mode="min", save_best_only = True, verbose=1)
-earlystopper = EarlyStopping(monitor = 'val_loss', min_delta = 0, patience = 10, verbose = 1, restore_best_weights = True)
-lr_reducer = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=4, verbose=1, min_delta=1e-4)
 
 def show_predictions(epoch):
     test_path1 = 'Dataset/Test_Images/11740_sat.jpg'

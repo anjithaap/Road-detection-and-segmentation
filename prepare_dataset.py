@@ -43,3 +43,6 @@ print("\n")
 print("Testing set")
 print(test_images.shape)
 print(test_masks.shape)
+
+def getDataset():
+    return (train_images, train_masks, test_images, test_masks)
