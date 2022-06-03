@@ -2,7 +2,6 @@
 from keras import backend as K
 
 # Soft Dice Loss
-
 def iou_coef(y_true, y_pred, smooth=1):
   intersection = K.sum(K.abs(y_true * y_pred), axis=[1,2,3])
   union = K.sum(y_true,[1,2,3])+K.sum(y_pred,[1,2,3])-intersection

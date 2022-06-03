@@ -26,7 +26,7 @@ for image in (sat_imgs[:N_IMAGES]):
 masks = []
 for mask in (msk_imgs[:N_IMAGES]):
     data = imread(MASKS_PATH + mask)
-    data = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY) # Conver mask images from RGB to Grayscale
+    data = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY) # Convert mask images from RGB to Grayscale
     data = np.expand_dims(data, axis=-1)
     masks.append(data)
 
