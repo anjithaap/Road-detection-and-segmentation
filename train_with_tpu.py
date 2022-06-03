@@ -11,6 +11,12 @@ import numpy as np
 import os
 
 
+# Import Prepared Dataset
+from prepare_dataset import getDataset
+
+# Import loss functions
+from loss_functions import soft_dice_loss
+
 # Initiate TPU
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
@@ -18,12 +24,6 @@ resolver = tf.distribute.cluster_resolver.TPUClusterResolver.connect()
 tf.config.experimental_connect_to_cluster(resolver)
 tf.tpu.experimental.initialize_tpu_system(resolver)
 strategy = tf.distribute.experimental.TPUStrategy(resolver)
-
-# Import Prepared Dataset
-from prepare_dataset import getDataset
-
-# Import loss functions
-from loss_functions import soft_dice_loss
 
 # Import Model architecture
 from models.fcn_32 import FCN32

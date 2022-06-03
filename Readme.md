@@ -18,6 +18,7 @@ git clone https://github.com/anjithaap/Road-detection-and-segmentation.git works
 cd workspace/
 gdown 1u4WJLjYrbZHwdvFOHQXJqDTtco6F5hJ-
 unzip -q Dataset.zip
+rm -rf epochs; mkdir epochs
 
 # Start Training
 python3 train.py
