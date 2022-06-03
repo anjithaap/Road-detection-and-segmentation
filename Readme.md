@@ -18,4 +18,10 @@ git clone https://github.com/anjithaap/Road-detection-and-segmentation.git works
 cd workspace/
 gdown 1u4WJLjYrbZHwdvFOHQXJqDTtco6F5hJ-
 unzip -q Dataset.zip
+
+# Start Training
+python3 train.py
+
+# Predict from saved model
+python3 predict.py
 ```

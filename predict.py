@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+
+
 # Import Libraries
 from loss import soft_dice_loss, iou_coef
 import matplotlib.pyplot as plt

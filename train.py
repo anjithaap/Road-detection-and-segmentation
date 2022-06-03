@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+
+
 # Import Libraries
 from keras.callbacks import ModelCheckpoint
 from IPython.display import clear_output
