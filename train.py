@@ -18,7 +18,7 @@ from models.fcn_32 import FCN32
 from models.fcn_8 import FCN8
 
 # Get prepared dataset
-train_images, train_masks, test_images, test_masks = getDataset()
+train_images, train_masks = getDataset()
 
 # Define model network to be trained
 model = FCN32()     # Default model set as FCN32
