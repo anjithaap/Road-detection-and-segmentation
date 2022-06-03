@@ -14,14 +14,14 @@ import numpy as np
 from prepare_dataset import getDataset
 
 # Import loss functions
-from loss import soft_dice_loss
+from loss_functions import soft_dice_loss
 
 # Import Model architecture
 from models.fcn_32 import FCN32
 from models.fcn_8 import FCN8
 
 # Get prepared dataset
-train_images, train_masks = getDataset()
+train_images, test_images, train_masks, test_masks = getDataset()
 
 # Define model network to be trained
 model = FCN32()     # Default model set as FCN32
@@ -97,8 +97,8 @@ model.compile(optimizer=adam, loss=soft_dice_loss, metrics=['accuracy'])
 
 # Start model training
 history = model.fit(train_images,
-                    train_masks/255,
-                    validation_split = 0.1,
+                    train_masks,
+                    validation_data = (test_images, test_masks),
                     epochs = EPOCHS,
                     batch_size = BATCH_SIZE,
                     callbacks = [checkpointer, DisplayCallback()])

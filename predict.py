@@ -2,7 +2,7 @@
 
 
 # Import Libraries
-from loss import soft_dice_loss, iou_coef
+from loss_functions import soft_dice_loss, iou_coef
 import matplotlib.pyplot as plt
 from skimage.io import imread
 import numpy as np
