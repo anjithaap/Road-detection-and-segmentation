@@ -34,6 +34,13 @@ images = np.stack(images)
 masks = np.stack(masks) / 255
 
 train_images, test_images, train_masks, test_masks = train_test_split(images, masks, test_size=0.2, random_state=2)
+
+pred_images = sample(os.listdir(IMAGES_PATH), 4)
+pred_masks  = []
+for mask_name in pred_images:
+    mask_name = mask_name.replace('_sat.jpg', '_mask.png')
+    pred_masks.append(mask_name)
+
 del images, masks
 
 print("Training Set")
@@ -44,4 +51,4 @@ print(test_images.shape)
 print(test_masks.shape)
 
 def getDataset():
-    return (train_images, test_images, train_masks, test_masks)
+    return (train_images, test_images, train_masks, test_masks, pred_images, pred_masks)

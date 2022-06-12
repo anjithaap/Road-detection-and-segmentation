@@ -36,51 +36,101 @@ checkpointer = ModelCheckpoint(model_path, monitor="val_loss", mode="min", save_
 
 
 # Code block to show predictions at each epoch
-def show_predictions(epoch):
-    test_path1 = 'Dataset/Test_Images/11740_sat.jpg'
-    test_path2 = 'Dataset/Test_Images/112348_sat.jpg'
-    test_path3 = 'Dataset/Test_Images/115172_sat.jpg'
+def model_status(epoch, accu, val_accu, loss, val_loss):
 
-    test_img1  = np.asarray([imread(test_path1)])
-    test_img2  = np.asarray([imread(test_path2)])
-    test_img3  = np.asarray([imread(test_path3)])
+    pred_img_path1 = IMAGES_PATH + pred_images[0]; pred_msk_path1 = MASKS_PATH + pred_masks[0]
+    pred_img_path2 = IMAGES_PATH + pred_images[1]; pred_msk_path2 = MASKS_PATH + pred_masks[1]
+    pred_img_path3 = IMAGES_PATH + pred_images[2]; pred_msk_path3 = MASKS_PATH + pred_masks[2]
+    pred_img_path4 = IMAGES_PATH + pred_images[3]; pred_msk_path4 = MASKS_PATH + pred_masks[3]
 
-    f = plt.figure(figsize = (8, 10))
+    test_img1  = np.asarray([imread(pred_img_path1)])
+    test_img2  = np.asarray([imread(pred_img_path2)])
+    test_img3  = np.asarray([imread(pred_img_path3)])
+    test_img4  = np.asarray([imread(pred_img_path4)])
+
+    f = plt.figure(figsize = (12, 8))
+    gs = f.add_gridspec(5, 6)
     f.suptitle(f'Epoch: {epoch}', x=0.5, y=0.02)
 
     
-    f.add_subplot(3,2,1)
-    plt.imshow(imread(test_path1), cmap='gray')
+    f.add_subplot(gs[0, 0])
+    plt.imshow(imread(pred_img_path1), cmap='gray')
     plt.title("Input Image")
     plt.axis('off')
-    f.add_subplot(3,2,2)
+    f.add_subplot(gs[0, 1])
+    plt.imshow(imread(pred_msk_path1), cmap='gray')
+    plt.title("Original Image")
+    plt.axis('off')
+    f.add_subplot(gs[0, 2])
     plt.imshow(model.predict(test_img1, verbose=1)[0][:,:,0], cmap='gray')
     plt.title("Predicted Image")
     plt.axis('off')
 
-    f.add_subplot(3,2,3)
-    plt.imshow(imread(test_path2), cmap='gray')
+
+    f.add_subplot(gs[1, 0])
+    plt.imshow(imread(pred_img_path2), cmap='gray')
     plt.axis('off')
-    f.add_subplot(3,2,4)
+    f.add_subplot(gs[1, 1])
+    plt.imshow(imread(pred_msk_path2), cmap='gray')
+    plt.axis('off')
+    f.add_subplot(gs[1, 2])
     plt.imshow(model.predict(test_img2, verbose=1)[0][:,:,0], cmap='gray')
     plt.axis('off')
 
-    f.add_subplot(3,2,5)
-    plt.imshow(imread(test_path3), cmap='gray')
+    f.add_subplot(gs[2, 0])
+    plt.imshow(imread(pred_img_path3), cmap='gray')
     plt.axis('off')
-    f.add_subplot(3,2,6)
+    f.add_subplot(gs[2, 1])
+    plt.imshow(imread(pred_msk_path3), cmap='gray')
+    plt.axis('off')
+    f.add_subplot(gs[2, 2])
     plt.imshow(model.predict(test_img3, verbose=1)[0][:,:,0], cmap='gray')
     plt.axis('off')
+
+    f.add_subplot(gs[3, 0])
+    plt.imshow(imread(pred_img_path4), cmap='gray')
+    plt.axis('off')
+    f.add_subplot(gs[3, 1])
+    plt.imshow(imread(pred_msk_path4), cmap='gray')
+    plt.axis('off')
+    f.add_subplot(gs[3, 2])
+    plt.imshow(model.predict(test_img4, verbose=1)[0][:,:,0], cmap='gray')
+    plt.axis('off')
+
+    f.add_subplot(gs[0:2, 3:6])
+    plt.plot(accu)
+    plt.plot(val_accu)
+    plt.ylabel('Accuracy')
+    plt.xlabel('Epoch')
+    plt.title("Model Accuracy")
+    plt.legend(['Training Accuracy', 'Validation accuracy'], loc='lower right')
     
+    f.add_subplot(gs[3:5, 3:6])
+    plt.plot(loss)
+    plt.plot(val_loss)
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
+    plt.title("Model Loss")
+    plt.legend(['Training loss', 'Validation loss'], loc='upper right')
     
     plt.savefig(f'epochs/{epoch}.png')
     plt.show()
 
 
+
 class DisplayCallback(tf.keras.callbacks.Callback):
+    def on_train_begin(self, logs=None):
+        self.accu = []
+        self.val_accu = []
+        self.loss = []
+        self.val_loss = []
     def on_epoch_end(self, epoch, logs=None):
+        self.accu.append(logs.get("accuracy"))
+        self.val_accu.append(logs.get("val_accuracy"))
+        self.loss.append(logs.get("loss"))
+        self.val_loss.append(logs.get("val_loss"))
         clear_output(wait=True)
-        show_predictions(epoch+1)
+        model_status(epoch, self.accu, self.val_accu, self.loss, self.val_loss)
 
 
 
