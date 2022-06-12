@@ -73,7 +73,7 @@ def model_status(epoch, accu, val_accu, loss, val_loss):
     test_img3  = np.asarray([imread(pred_img_path3)])
     test_img4  = np.asarray([imread(pred_img_path4)])
 
-    f = plt.figure(figsize = (12, 8))
+    f = plt.figure(figsize = (24, 16))
     gs = f.add_gridspec(5, 6)
     f.suptitle(f'Epoch: {epoch}', x=0.5, y=0.02)
 
