@@ -84,7 +84,7 @@ def model_status(epoch, accu, val_accu, loss, val_loss):
     plt.axis('off')
     f.add_subplot(gs[0, 1])
     plt.imshow(imread(pred_msk_path1), cmap='gray')
-    plt.title("Original Image")
+    plt.title("Ground Truth")
     plt.axis('off')
     f.add_subplot(gs[0, 2])
     plt.imshow(model.predict(test_img1, verbose=1)[0][:,:,0], cmap='gray')
