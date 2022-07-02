@@ -2,7 +2,6 @@
 Segmenting road from satellite images using FCN-8 and FCN-32 neural networks with Keras
 
 
-
 ## Download the Dataset
 * An archive file containing satellite images as JPEG files within respective directories
 * The image files have dimension as `512 X 512` pixels
